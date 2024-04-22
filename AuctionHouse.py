@@ -10,10 +10,14 @@ class AuctionHouse:
         self.auctions = []
         self.security_level = SecurityLabel.AUCTION_HOUSE_CONFIDENTIAL
 
-    def register_bidder(self, bidder_id, pseudonym, is_new=None, reference=None):
-        bidder = Bidder(bidder_id, pseudonym)
-        self.registered_bidders[bidder_id] = bidder
-        print(f"Bidder {pseudonym} registered successfully.")
+    def register_bidder(self, bidder_id, pseudonym):
+        if bidder_id in self.registered_bidders.keys():
+            bidder = Bidder(bidder_id, pseudonym, False)
+            print(f"Bidder {pseudonym} already registered!")
+        else:
+            bidder = Bidder(bidder_id, pseudonym, True)
+            self.registered_bidders[bidder_id] = bidder
+            print(f"Bidder {pseudonym} registered successfully.")
         return bidder
 
     def verify_and_update_reputation(self, bidder, reference):
